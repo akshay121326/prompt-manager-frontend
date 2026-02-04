@@ -16,6 +16,11 @@ jobs:
           cat <<EOF > .env.production
           ${{ secrets.PRODUCTION_ENV }}
           EOF
+      - name: Verify .env.production keys (Debug)
+        run: |
+          echo "Checking .env.production keys..."
+          grep -o '^[^=]*' .env.production || echo "No keys found"
+          ls -l .env.production
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
