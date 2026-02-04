@@ -3,6 +3,9 @@ import { getAuth } from "firebase/auth";
 
 // TODO: Replace with your Firebase project configuration
 // You can also use environment variables like import.meta.env.VITE_FIREBASE_API_KEY
+console.log("VITE_FIREBASE_API_KEY Type:", typeof import.meta.env.VITE_FIREBASE_API_KEY);
+console.log("VITE_FIREBASE_API_KEY Length:", import.meta.env.VITE_FIREBASE_API_KEY?.length);
+
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,15 +15,10 @@ const firebaseConfig = {
     appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Debug: Check if env vars are loaded in production
-if (import.meta.env.PROD) {
-    const mask = (str) => str ? `${str.substring(0, 4)}...${str.substring(str.length - 4)}` : "MISSING";
-    console.log("Firebase Config Debug:", {
-        apiKey: mask(firebaseConfig.apiKey),
-        projectId: mask(firebaseConfig.projectId),
-        env_keys: Object.keys(import.meta.env).filter(k => k.startsWith('VITE_'))
-    });
-}
+console.log("Firebase Config Object (Masked):", {
+    apiKey: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 5)}...` : "UNDEFINED",
+    projectId: firebaseConfig.projectId || "UNDEFINED"
+});
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
