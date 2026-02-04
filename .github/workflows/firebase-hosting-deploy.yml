@@ -1,17 +1,11 @@
-name: Deploy to Firebase Hosting on merge
-'on':
+# Neutralized duplicate workflow
+name: Dummy
+on:
   push:
     branches:
-      - main
+      - never-trigger
 jobs:
-  build_and_deploy:
+  nothing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROMPT_PRO_3DF27 }}'
-          channelId: live
-          projectId: prompt-pro-3df27
+      - run: echo "This workflow is neutralized"
