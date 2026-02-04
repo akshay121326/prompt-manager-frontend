@@ -1,4 +1,3 @@
-console.log("CRITICAL: APP ENTRY POINT LOADED - V2 DEBUG");
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'

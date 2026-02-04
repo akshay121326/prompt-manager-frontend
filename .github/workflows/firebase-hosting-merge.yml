@@ -16,14 +16,6 @@ jobs:
           cat <<'EOF' > .env.production
           ${{ secrets.PRODUCTION_ENV }}
           EOF
-      - name: Build Verification (Debug)
-        run: |
-          echo "--- DEBUG INFO ---"
-          ls -l .env.production
-          echo "Byte count: $(wc -c < .env.production)"
-          echo "Detected Keys:"
-          grep -o '^VITE_[^=]*' .env.production || echo "None"
-          echo "------------------"
       - name: Build and Deploy
         run: |
           # Load the env file into the build process shell
