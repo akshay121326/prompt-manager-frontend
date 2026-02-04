@@ -14,9 +14,11 @@ const firebaseConfig = {
 
 // Debug: Check if env vars are loaded in production
 if (import.meta.env.PROD) {
-    console.log("Firebase Config Loaded:", {
-        apiKey: !!firebaseConfig.apiKey,
-        projectId: !!firebaseConfig.projectId
+    const mask = (str) => str ? `${str.substring(0, 4)}...${str.substring(str.length - 4)}` : "MISSING";
+    console.log("Firebase Config Debug:", {
+        apiKey: mask(firebaseConfig.apiKey),
+        projectId: mask(firebaseConfig.projectId),
+        env_keys: Object.keys(import.meta.env).filter(k => k.startsWith('VITE_'))
     });
 }
 
