@@ -13,15 +13,23 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create .env.production
         run: |
-          cat <<EOF > .env.production
+          cat <<'EOF' > .env.production
           ${{ secrets.PRODUCTION_ENV }}
           EOF
-      - name: Verify .env.production keys (Debug)
+      - name: Build Verification (Debug)
         run: |
-          echo "Checking .env.production keys..."
-          grep -o '^[^=]*' .env.production || echo "No keys found"
+          echo "--- DEBUG INFO ---"
           ls -l .env.production
-      - run: npm ci && npm run build
+          echo "Byte count: $(wc -c < .env.production)"
+          echo "Detected Keys:"
+          grep -o '^VITE_[^=]*' .env.production || echo "None"
+          echo "------------------"
+      - name: Build and Deploy
+        run: |
+          # Load the env file into the build process shell
+          export $(grep -v '^#' .env.production | xargs)
+          npm ci
+          npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

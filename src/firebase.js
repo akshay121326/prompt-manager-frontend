@@ -15,7 +15,7 @@ const firebaseConfig = {
     appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-console.log("Firebase Config Object (Masked):", {
+console.log("Firebase Config Object (V3.1 Masked):", {
     apiKey: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 5)}...` : "UNDEFINED",
     projectId: firebaseConfig.projectId || "UNDEFINED"
 });
