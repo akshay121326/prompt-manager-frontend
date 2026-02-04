@@ -14,7 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create .env.production
-        run: echo "${{ secrets.PRODUCTION_ENV }}" > .env.production
+        run: |
+          cat <<EOF > .env.production
+          ${{ secrets.PRODUCTION_ENV }}
+          EOF
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
